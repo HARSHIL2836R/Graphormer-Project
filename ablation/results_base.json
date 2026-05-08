@@ -1,0 +1,134 @@
+{
+  "config": {
+    "model": "base",
+    "checkpoint": null,
+    "device": "cuda",
+    "batch_size": 2,
+    "num_nodes": 32,
+    "iters": 30,
+    "warmup": 5,
+    "backends": [
+      "manual",
+      "sdpa",
+      "sdpa-flash"
+    ],
+    "dtypes": [
+      "fp32",
+      "fp16",
+      "bf16"
+    ],
+    "json_out": "ablation/results_base.json"
+  },
+  "arch": {
+    "num_atoms": 4608,
+    "num_edges": 1536,
+    "num_in_degree": 512,
+    "num_out_degree": 512,
+    "num_spatial": 512,
+    "num_edge_dis": 128,
+    "edge_type": "multi_hop",
+    "multi_hop_max_dist": 5,
+    "encoder_layers": 12,
+    "encoder_embed_dim": 768,
+    "encoder_ffn_embed_dim": 768,
+    "encoder_attention_heads": 32,
+    "activation_fn": "gelu",
+    "encoder_normalize_before": true,
+    "pre_layernorm": false,
+    "num_classes": 1,
+    "max_nodes": 128
+  },
+  "results": [
+    {
+      "backend": "manual",
+      "dtype": "fp32",
+      "ok": true,
+      "mean_ms": 5.375967502593994,
+      "median_ms": 5.371047019958496,
+      "p90_ms": 5.390812873840332,
+      "std_ms": 0.014873679727315903,
+      "peak_mem_mb": 198.78857421875
+    },
+    {
+      "backend": "manual",
+      "dtype": "fp16",
+      "ok": true,
+      "mean_ms": 2.9101665019989014,
+      "median_ms": 2.8460540771484375,
+      "p90_ms": 2.920440673828125,
+      "std_ms": 0.29339125752449036,
+      "peak_mem_mb": 292.52197265625
+    },
+    {
+      "backend": "manual",
+      "dtype": "bf16",
+      "ok": true,
+      "mean_ms": 2.892991542816162,
+      "median_ms": 2.817003011703491,
+      "p90_ms": 2.8556485176086426,
+      "std_ms": 0.32907193899154663,
+      "peak_mem_mb": 292.52197265625
+    },
+    {
+      "backend": "sdpa",
+      "dtype": "fp32",
+      "ok": true,
+      "mean_ms": 4.770881652832031,
+      "median_ms": 4.775946140289307,
+      "p90_ms": 4.82321834564209,
+      "std_ms": 0.05558083951473236,
+      "peak_mem_mb": 200.03857421875
+    },
+    {
+      "backend": "sdpa",
+      "dtype": "fp16",
+      "ok": true,
+      "mean_ms": 2.567342519760132,
+      "median_ms": 2.4421989917755127,
+      "p90_ms": 2.490968704223633,
+      "std_ms": 0.4796229302883148,
+      "peak_mem_mb": 292.52197265625
+    },
+    {
+      "backend": "sdpa",
+      "dtype": "bf16",
+      "ok": true,
+      "mean_ms": 2.592602252960205,
+      "median_ms": 2.5274040699005127,
+      "p90_ms": 2.572766065597534,
+      "std_ms": 0.32898956537246704,
+      "peak_mem_mb": 292.52197265625
+    },
+    {
+      "backend": "sdpa-flash",
+      "dtype": "fp32",
+      "ok": true,
+      "mean_ms": 4.713812828063965,
+      "median_ms": 4.7014851570129395,
+      "p90_ms": 4.825944423675537,
+      "std_ms": 0.08089085668325424,
+      "peak_mem_mb": 200.03857421875
+    },
+    {
+      "backend": "sdpa-flash",
+      "dtype": "fp16",
+      "ok": true,
+      "mean_ms": 2.6410117149353027,
+      "median_ms": 2.5796918869018555,
+      "p90_ms": 2.6360228061676025,
+      "std_ms": 0.2939240336418152,
+      "peak_mem_mb": 292.52197265625
+    },
+    {
+      "backend": "sdpa-flash",
+      "dtype": "bf16",
+      "ok": true,
+      "mean_ms": 2.6701419353485107,
+      "median_ms": 2.5951619148254395,
+      "p90_ms": 2.7158565521240234,
+      "std_ms": 0.33003121614456177,
+      "peak_mem_mb": 292.52197265625
+    }
+  ],
+  "kv_cache_note": "KV cache: NOT APPLICABLE. Graphormer is encoder-only and processes the\nentire padded graph [CLS, v1..vN] in a single bidirectional pass. There is\nno autoregressive step, and the attention bias depends on all node-pairs\njointly, so K/V are produced and consumed exactly once per forward.\nKV caching only accelerates incremental decoding and is excluded here."
+}

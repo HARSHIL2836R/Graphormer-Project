@@ -1,0 +1,4 @@
+# Inference-only ablation: PyTorch >= 2.0 is required for
+# torch.nn.functional.scaled_dot_product_attention (Flash / mem-eff backends).
+# RTX 30-series (Ampere) is supported by torch>=2.1 + cu118/cu121 wheels.
+torch>=2.1
