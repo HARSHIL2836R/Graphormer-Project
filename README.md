@@ -1,2 +1,1 @@
-# Group Project: Learning with Graphs
-## [Do Transformers Really Perform Bad for Graph Representation?](https://arxiv.org/abs/2106.05234)
+This code implements a transformer architecture for graphs drawing inspiration from "Graphormer" by Microsoft. We test different biases added to the attention matrix and analyze them.
