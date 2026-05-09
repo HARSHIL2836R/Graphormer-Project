@@ -1,6 +1,6 @@
-============================================================================
+
 GRAPHORMER ABLATION & EXTENSION EXPERIMENTS — RESULTS LOG
-============================================================================
+
 All runs use Microsoft's pretrained pcqm4mv2_graphormer_base checkpoint
 (loaded with strict parameter matching: 0 missing / 0 unexpected keys).
 "n" graphs are the first n entries of the official PCQM4Mv2 valid split,
@@ -19,9 +19,9 @@ Used to confirm mini_graphormer reproduces the published 0.0864 eV number
   $ python validate.py --ckpt checkpoint_best_pcqm4mv2.pt --max-graphs 5000
 
 
-============================================================================
+
 2. Ablation study
-============================================================================
+
 Disables one Graphormer-specific bias module at a time via a forward hook
 that replaces the module's output with zeros. No weight modification — the
 same loaded model is reused across all ablations. Reveals which structural
@@ -39,9 +39,9 @@ encodings the trained model actually relies on at inference.
   no_all_attn_biases       0.757560 +0.6556 (+643%)   13.0s
 
 
-============================================================================
+
 3. Extension: Laplacian PE (SAN-flavoured)
-============================================================================
+
 Adds α · U_k W U_k^T as an additive attention bias, where U_k are the k=8
 smallest non-trivial Laplacian eigenvectors per molecule and W = I (uniform
 weighting). Each run sweeps a different α; tables ordered by ascending α.
@@ -97,9 +97,8 @@ The four configurations (same for §4 and §5):
   all + laplacian          0.104514  +0.0025 (+2%)    31.1s
 
 
-============================================================================
 4. Extension: Random-Walk PE (RWPE, GTN-flavoured)
-============================================================================
+
 Adds α · sum_{k=1..K} (D^{-1/2} A D^{-1/2})^k as an additive attention bias
 — a multi-scale "soft adjacency" from random-walk powers. K = 4 throughout.
 Same four-config evaluation as Laplacian. Tables ordered by ascending α.
@@ -171,9 +170,9 @@ Same four-config evaluation as Laplacian. Tables ordered by ascending α.
   all + rwpe               0.110219  +0.0082 (+8%)    17.6s
 
 
-============================================================================
+
 5. Extension: Ring-aware bias (PAGTN-flavoured)
-============================================================================
+
 Adds α · 1[i, j share a ring] as an additive attention bias, with rings
 extracted via rdkit's smallest-set-of-smallest-rings (SSSR). Binary mask;
 shows the steepest sensitivity to α of the three extensions. Same four-
@@ -235,9 +234,9 @@ config eval. Tables ordered by ascending α.
   all + ring               0.159961 +0.0580 (+57%)    58.0s
 
 
-============================================================================
+
 6. Per-molecule study: handcraft.py
-============================================================================
+
 Runs the loaded model on five canonical aromatic molecules with documented
 B3LYP HOMO-LUMO gaps from the literature. For each molecule, four forward
 passes: baseline plus each extension applied IN ISOLATION (never two at
