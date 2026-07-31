@@ -14,10 +14,4 @@ mini_graphormer/
     MIT licensed) so that the officially released pcqm4mv2_graphormer_base
     checkpoints load without remapping. No Microsoft source is copied.
 
-Original Codebase/Graphormer/
-
-    An unmodified copy of Microsoft Graphormer, MIT licensed. Retained for
-    reference; its own LICENSE file governs that directory and is NOT
-    superseded by the Apache-2.0 license at the repository root.
-
 Evaluated on PCQM4Mv2 (OGB-LSC), CC BY 4.0.
