@@ -1,0 +1,23 @@
+Graphormer Ablation & Extension Study
+Copyright 2026 Harshil Solanki
+
+Licensed under the Apache License, Version 2.0. See LICENSE.
+
+--------------------------------------------------------------------------
+Third-party code
+--------------------------------------------------------------------------
+
+mini_graphormer/
+
+    An independent reimplementation. Parameter naming deliberately mirrors
+    Microsoft's Graphormer (https://github.com/microsoft/Graphormer,
+    MIT licensed) so that the officially released pcqm4mv2_graphormer_base
+    checkpoints load without remapping. No Microsoft source is copied.
+
+Original Codebase/Graphormer/
+
+    An unmodified copy of Microsoft Graphormer, MIT licensed. Retained for
+    reference; its own LICENSE file governs that directory and is NOT
+    superseded by the Apache-2.0 license at the repository root.
+
+Evaluated on PCQM4Mv2 (OGB-LSC), CC BY 4.0.
